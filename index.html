@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabinet Psychologiczny – Wsparcie, które działa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #1a4d3a;
+    --green-mid: #2d7a56;
+    --green-light: #4caf7d;
+    --green-pale: #e8f5ee;
+    --green-mist: #f2faf5;
+    --yellow: #f5c842;
+    --yellow-hover: #e6b830;
+    --white: #ffffff;
+    --text-dark: #1a2e24;
+    --text-mid: #3d5a4a;
+    --text-soft: #6b8c7a;
+    --border: #cfe8d8;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-dark);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    color: var(--green-deep);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .nav-logo span { color: var(--green-light); }
+
+  /* ─── ABOUT ─── */
+  .about { background: var(--white); }
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  @media (max-width: 760px) { .about-layout { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+  .about-visual {
+    position: relative;
+  }
+  .about-avatar {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: linear-gradient(145deg, var(--green-pale) 0%, var(--green-mist) 100%);
+    border-radius: 28px;
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-size: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-avatar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 30%, rgba(76,175,125,0.15) 0%, transparent 60%);
+  }
+  .about-avatar-initials {
+    width: 100px; height: 100px;
+    background: var(--green-deep);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    position: relative;
+    z-index: 1;
+  }
+  .about-avatar-name {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--green-deep);
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+  }
+  .about-avatar-title {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    position: relative;
+    z-index: 1;
+  }
+  .about-badge-float {
+    position: absolute;
+    bottom: -16px; right: -16px;
+    background: var(--yellow);
+    border-radius: 14px;
+    padding: 0.9rem 1.1rem;
+    box-shadow: 0 8px 24px rgba(245,200,66,0.35);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-align: center;
+    line-height: 1.4;
+  }
+  .about-badge-float strong { display: block; font-size: 1.4rem; font-family: 'Lora', serif; }
+
+  .about-content .section-title { margin-bottom: 1.25rem; }
+  .about-content p {
+    color: var(--text-mid);
+    font-size: 1rem;
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+  .about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .about-tag {
+    background: var(--green-pale);
+    border: 1px solid var(--border);
+    color: var(--green-mid);
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 0.4rem 0.9rem;
+    border-radius: 50px;
+  }
+  .nav-cta {
+    background: var(--yellow);
+    color: var(--text-dark);
+    border: none;
+    padding: 0.55rem 1.3rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    text-decoration: none;
+  }
+  .nav-cta:hover { background: var(--yellow-hover); transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 6rem 1.5rem 4rem;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 20%, rgba(76,175,125,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 10% 80%, rgba(26,77,58,0.08) 0%, transparent 55%),
+      var(--green-mist);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    border: 1px solid rgba(76,175,125,0.15);
+    top: -100px; right: -150px;
+    animation: slowSpin 40s linear infinite;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    border: 1px solid rgba(76,175,125,0.1);
+    bottom: -80px; left: -80px;
+    animation: slowSpin 30s linear infinite reverse;
+  }
+  @keyframes slowSpin { to { transform: rotate(360deg); } }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--green-pale);
+    border: 1px solid var(--border);
+    color: var(--green-mid);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+    line-height: 1.2;
+    color: var(--green-deep);
+    max-width: 760px;
+    margin: 0 auto 1.25rem;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--green-light);
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--text-mid);
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    font-weight: 300;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--yellow);
+    color: var(--text-dark);
+    border: none;
+    padding: 1rem 2.2rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(245,200,66,0.4);
+  }
+  .btn-primary:hover {
+    background: var(--yellow-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(245,200,66,0.45);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--green-mid);
+    border: 1.5px solid var(--green-light);
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { background: var(--green-pale); color: var(--green-deep); }
+
+  .hero-trust {
+    margin-top: 3.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.4s ease both;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+  }
+  .trust-icon {
+    width: 28px; height: 28px;
+    background: var(--green-pale);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 0.75rem;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION WRAPPER ─── */
+  section { padding: 5rem 1.5rem; }
+  .container { max-width: 1040px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+    color: var(--green-deep);
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+  .section-desc {
+    color: var(--text-mid);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 540px;
+    font-weight: 300;
+  }
+
+  /* ─── SERVICES ─── */
+  .services { background: var(--white); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .service-card {
+    background: var(--green-mist);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green-light), var(--yellow));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px rgba(26,77,58,0.1);
+    border-color: var(--green-light);
+  }
+  .service-card:hover::before { opacity: 1; }
+
+  .service-icon {
+    width: 52px; height: 52px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    display: grid;
+    place-items: center;
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 8px rgba(26,77,58,0.06);
+  }
+  .service-card h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    color: var(--green-deep);
+    margin-bottom: 0.75rem;
+  }
+  .service-card p {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    font-weight: 300;
+  }
+
+  /* ─── BENEFITS ─── */
+  .benefits { background: var(--green-deep); }
+  .benefits .section-label { color: var(--green-light); }
+  .benefits .section-title { color: var(--white); }
+  .benefits .section-desc { color: rgba(255,255,255,0.65); max-width: 460px; }
+
+  .benefits-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+  @media (max-width: 720px) { .benefits-layout { grid-template-columns: 1fr; gap: 2.5rem; } }
+
+  .benefits-list { display: flex; flex-direction: column; gap: 1rem; }
+  .benefit-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1.25rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    transition: background 0.2s;
+  }
+  .benefit-item:hover { background: rgba(255,255,255,0.08); }
+  .benefit-num {
+    min-width: 32px; height: 32px;
+    background: var(--yellow);
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+  .benefit-item h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+  }
+  .benefit-item p {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.55;
+  }
+
+  .quote-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 2rem;
+  }
+  .quote-mark {
+    font-family: 'Lora', serif;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--yellow);
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+  }
+  .quote-card blockquote {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .quote-author {
+    font-size: 0.85rem;
+    color: var(--green-light);
+    font-weight: 500;
+  }
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .stat-box {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .stat-box strong {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--yellow);
+    font-family: 'Lora', serif;
+  }
+  .stat-box span { font-size: 0.78rem; color: rgba(255,255,255,0.55); }
+
+  /* ─── HOW IT WORKS ─── */
+  .how { background: var(--green-pale); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+    position: relative;
+  }
+  .step {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: var(--white);
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .step-num {
+    width: 44px; height: 44px;
+    background: var(--green-deep);
+    color: var(--white);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 1rem;
+    margin: 0 auto 1rem;
+  }
+  .step h4 {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--green-deep);
+    margin-bottom: 0.6rem;
+  }
+  .step p { font-size: 0.87rem; color: var(--text-soft); line-height: 1.6; }
+
+  /* ─── FAQ ─── */
+  .faq { background: var(--white); }
+  .faq-grid {
+    max-width: 720px;
+    margin: 3rem auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .faq-item.open { border-color: var(--green-light); }
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.3rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.97rem;
+    font-weight: 500;
+    color: var(--green-deep);
+    text-align: left;
+    gap: 1rem;
+  }
+  .faq-q:hover { background: var(--green-mist); }
+  .faq-arrow {
+    min-width: 24px; height: 24px;
+    background: var(--green-pale);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 0.7rem;
+    color: var(--green-mid);
+    transition: transform 0.25s, background 0.2s;
+  }
+  .faq-item.open .faq-arrow {
+    transform: rotate(180deg);
+    background: var(--green-mid);
+    color: white;
+  }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0 1.5rem;
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding: 0 1.5rem 1.3rem; }
+
+  /* ─── FINAL CTA ─── */
+  .final-cta {
+    background:
+      radial-gradient(ellipse 70% 80% at 50% 50%, rgba(76,175,125,0.15) 0%, transparent 70%),
+      var(--green-mist);
+    text-align: center;
+    padding: 6rem 1.5rem;
+  }
+  .final-cta .section-title { margin-bottom: 1rem; }
+  .final-cta .section-desc { margin: 0 auto 2.5rem; max-width: 480px; }
+  .cta-note {
+    margin-top: 1.25rem;
+    font-size: 0.82rem;
+    color: var(--text-soft);
+  }
+  .cta-note a { color: var(--green-mid); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--green-deep);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 2rem 1.5rem;
+    font-size: 0.82rem;
+  }
+  footer a { color: rgba(255,255,255,0.6); }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 600px) {
+    .hero-trust { gap: 1rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+    nav { padding: 0.9rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Marlena<span> Sobczak</span></div>
+  <a href="#kontakt" class="nav-cta">Umów wizytę</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div style="position:relative;z-index:1;">
+    <div class="hero-badge">🌿 Profesjonalne wsparcie psychologiczne</div>
+    <h1>Zatrzymaj się.<br>Jesteś <em>ważniejszy</em><br>niż myślisz.</h1>
+    <p class="hero-sub">Oferuję psychoedukację, interwencję kryzysową i krótkoterminowe poradnictwo – skuteczną pomoc ukierunkowaną na konkretny problem, w bezpiecznej przestrzeni bez oceniania.</p>
+    <div class="hero-actions">
+      <a href="#kontakt" class="btn-primary">✦ Umów pierwszą wizytę</a>
+      <a href="#uslugi" class="btn-ghost">Poznaj ofertę</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <div class="trust-icon">🔒</div>
+        <span>Pełna poufność</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">📋</div>
+        <span>Dyplomowany psycholog</span>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">⚡</div>
+        <span>Szybka dostępność</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="uslugi">
+  <div class="container">
+    <div style="text-align:center;max-width:580px;margin:0 auto;">
+      <p class="section-label">Co oferuję</p>
+      <h2 class="section-title">Trzy formy wsparcia,<br>jedna przestrzeń bezpieczeństwa</h2>
+      <p class="section-desc">Każda usługa jest dopasowana do konkretnej potrzeby – niezależnie od tego, gdzie teraz jesteś.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🧠</div>
+        <h3>Psychoedukacja</h3>
+        <p>Dowiedz się, jak działa Twój umysł i emocje. Warsztaty i spotkania edukacyjne pomagają rozumieć siebie, radzić sobie ze stresem i budować zdrowsze nawyki myślenia.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🆘</div>
+        <h3>Interwencja kryzysowa</h3>
+        <p>Kiedy wszystko się wali – jesteś tu i teraz i potrzebujesz pomocy natychmiast. Szybka, ukierunkowana pomoc w najtrudniejszych momentach, gdy liczy się każda godzina.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🗺️</div>
+        <h3>Poradnictwo psychologiczne</h3>
+        <p>Krótkoterminowa praca ukierunkowana na rozwiązanie konkretnego problemu. Bez lat terapii – skoncentrowane wsparcie z jasnym celem i mierzalnymi efektami.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+  <div class="container">
+    <div class="benefits-layout">
+      <div>
+        <p class="section-label">Co znajdziesz</p>
+        <h2 class="section-title" style="color:white;">Dlaczego warto<br>podjąć ten krok</h2>
+        <p class="section-desc">Wielu ludzi zwleka latami. Te korzyści czekają na Ciebie od pierwszego spotkania.</p>
+        <div class="benefits-list" style="margin-top:2rem;">
+          <div class="benefit-item">
+            <div class="benefit-num">1</div>
+            <div>
+              <h4>Zrozumiesz siebie głębiej</h4>
+              <p>Odkryjesz wzorce, które nieświadomie sabotują Twoje życie i związki.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-num">2</div>
+            <div>
+              <h4>Odzyskasz spokój wewnętrzny</h4>
+              <p>Nauczysz się konkretnych technik regulacji emocji i redukcji lęku.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-num">3</div>
+            <div>
+              <h4>Wrócisz do działania</h4>
+              <p>Zbudujesz plan wyjścia z kryzysu – małymi, pewnym krokami do przodu.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-num">4</div>
+            <div>
+              <h4>Poprawa relacji z bliskimi</h4>
+              <p>Zdrowsze granice i lepsza komunikacja zmieniają jakość wszystkich relacji.</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-num">5</div>
+            <div>
+              <h4>Poczujesz, że nie jesteś sam/a</h4>
+              <p>Bezpieczna przestrzeń bez oceniania – tylko Ty i Twoja historia.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="quote-card">
+          <div class="quote-mark">"</div>
+          <blockquote>Szukanie pomocy nie jest słabością. To odwaga, by stanąć twarzą w twarz z tym, co najtrudniejsze – i postanowić zrobić to inaczej.</blockquote>
+          <div class="quote-author">— Marlena Sobczak, psycholog</div>
+          <div class="stat-row">
+            <div class="stat-box">
+              <strong>94%</strong>
+              <span>klientów odczuwa ulgę już po 1. sesji</span>
+            </div>
+            <div class="stat-box">
+              <strong>3–8</strong>
+              <span>sesji wystarczy w poradnictwie krótkoterminowym</span>
+            </div>
+            <div class="stat-box">
+              <strong>24h</strong>
+              <span>czas oczekiwania na wizytę interwencyjną</span>
+            </div>
+            <div class="stat-box">
+              <strong>100%</strong>
+              <span>poufności i bezpieczeństwa danych</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="container">
+    <div style="text-align:center;max-width:560px;margin:0 auto;">
+      <p class="section-label">Jak działamy</p>
+      <h2 class="section-title">Cztery kroki do zmiany</h2>
+      <p class="section-desc">Prosty proces, który sprawia, że pierwszy krok jest łatwy.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Kontakt</h4>
+        <p>Wypełnij formularz lub zadzwoń. Bez długiego oczekiwania i formalności.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Rozmowa wstępna</h4>
+        <p>Bezpłatne 15 minut, żebyś wiedział/a, czego się spodziewać i czy to odpowiednie miejsce dla Ciebie.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Dopasowanie planu</h4>
+        <p>Wspólnie ustalamy cel i formę pracy – psychoedukacja, interwencja czy poradnictwo.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Działanie i zmiana</h4>
+        <p>Regularne sesje w bezpiecznym tempie prowadzące do mierzalnych efektów.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about">
+  <div class="container">
+    <div class="about-layout">
+      <div class="about-visual">
+        <div class="about-avatar">
+          <div class="about-avatar-initials">MS</div>
+          <div class="about-avatar-name">Marlena Sobczak</div>
+          <div class="about-avatar-title">Psycholog</div>
+        </div>
+        <div class="about-badge-float">
+          <strong>🌿</strong>
+          Bezpieczna<br>przestrzeń
+        </div>
+      </div>
+      <div class="about-content">
+        <p class="section-label">O mnie</p>
+        <h2 class="section-title">Nazywam się<br>Marlena Sobczak</h2>
+        <p>Jestem psychologiem i pracuję z osobami, które potrzebują zrozumienia, wsparcia oraz bezpiecznej przestrzeni do pracy nad sobą. W swojej praktyce opieram się na wiedzy naukowej, rzetelnej psychoedukacji i metodach, które realnie pomagają odzyskać równowagę psychiczną.</p>
+        <p>Pracuję z osobami doświadczającymi trudności emocjonalnych, kryzysów życiowych, przeciążenia stresem, wypalenia, problemów w relacjach oraz poczucia zagubienia.</p>
+        <p>Ważne jest dla mnie, aby każda osoba czuła się <strong style="color:var(--green-deep);font-weight:600;">wysłuchana, zrozumiana i traktowana z szacunkiem</strong> – niezależnie od tego, z czym przychodzi.</p>
+        <div class="about-tags">
+          <span class="about-tag">Trudności emocjonalne</span>
+          <span class="about-tag">Kryzysy życiowe</span>
+          <span class="about-tag">Wypalenie zawodowe</span>
+          <span class="about-tag">Stres i przeciążenie</span>
+          <span class="about-tag">Problemy w relacjach</span>
+          <span class="about-tag">Poczucie zagubienia</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div style="text-align:center;max-width:560px;margin:0 auto;">
+      <p class="section-label">Pytania i odpowiedzi</p>
+      <h2 class="section-title">Masz wątpliwości?<br>To zupełnie normalne.</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Czym różni się poradnictwo od psychoterapii?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-a">Poradnictwo psychologiczne to krótkoterminowa praca ukierunkowana na konkretny, bieżący problem – np. trudna decyzja, zmiana życiowa, konflikty w relacji. Psychoterapia to głębszy, długotrwały proces, który sięga do źródeł trudności – często zakorzenionych w historii życia, schematach myślenia czy doświadczeniach z przeszłości. Poradnictwo jest szybsze i bardziej pragmatyczne, natomiast psychoterapia bywa niezbędna przy głębszych, powtarzających się problemach. Jeśli nie wiesz, która forma jest odpowiednia dla Ciebie – omówimy to razem podczas pierwszej rozmowy.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Kiedy powinienem/powinnam skontaktować się w trybie interwencji kryzysowej?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-a">Interwencja kryzysowa jest odpowiednia w sytuacjach nagłych: śmierć bliskiej osoby, nagła utrata pracy, rozpad związku, atak paniki, myśli samobójcze lub autoagresja. Jeśli czujesz, że nie dajesz rady i potrzebujesz pomocy już teraz – zadzwoń. Nie musisz czekać na "wystarczająco poważny" powód.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Czy sesje są poufne? Co z moimi danymi?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-a">Tak – zachowanie tajemnicy zawodowej jest fundamentem każdej sesji i wymogiem etycznym w zawodzie psychologa. Twoje dane są przetwarzane zgodnie z RODO. Wyjątki istnieją wyłącznie w przypadkach zagrożenia życia – i zawsze omówimy je z Tobą wcześniej.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Ile sesji będę potrzebować?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-a">W poradnictwie krótkoterminowym zazwyczaj wystarczy 3–8 spotkań. Interwencja kryzysowa to często 1–3 sesje, po których oceniamy, czy potrzebne jest dalsze wsparcie. Czas trwania pracy zawsze ustalamy wspólnie po pierwszym spotkaniu – nigdy nie przedłużamy bez Twojej zgody i potrzeby.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Czy sesje online są tak samo skuteczne jak stacjonarne?
+          <span class="faq-arrow">▾</span>
+        </button>
+        <div class="faq-a">Badania potwierdzają, że sesje online są równie skuteczne jak stacjonarne w przypadku poradnictwa i psychoedukacji. Oferuję obie formy. Sesje online umożliwiają Ci udział z dowolnego miejsca, bez dojazdów – co dla wielu osób obniża próg wejścia i ułatwia regularność.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="kontakt">
+  <div class="container">
+    <p class="section-label">Zacznij już teraz</p>
+    <h2 class="section-title">Jeden krok oddziela Cię<br>od zmiany.</h2>
+    <p class="section-desc">Nie musisz mieć kryzysu, żeby zasługiwać na wsparcie. Wystarczy, że czujesz, że coś mogłoby być lepiej.</p>
+    <a href="mailto:kontakt@gabinetpsychologiczny.pl" class="btn-primary" style="font-size:1.05rem;padding:1.1rem 2.5rem;">
+      ✦ Umów się na wizytę
+    </a>
+    <p class="cta-cta" style="display:none;"></p>
+    <p class="cta-note">
+      Lub napisz na <a href="mailto:kontakt@gabinetpsychologiczny.pl">kontakt@gabinetpsychologiczny.pl</a> · Odpowiadam w ciągu 24h
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Gabinet Psychologiczny · Wszystkie prawa zastrzeżone · <a href="#">Polityka prywatności</a></p>
+</footer>
+
+<script>
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .benefit-item, .step, .faq-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
